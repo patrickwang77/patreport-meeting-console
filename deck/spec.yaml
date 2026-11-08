@@ -1,0 +1,106 @@
+schema_version: "yaml_image_deck_v1"
+
+deck:
+  title: "Patreport Console 平台介紹與操作指南"
+  audience: "企業管理層、會議主持人與跨部門專案同仁"
+  purpose: "展示現代化定期會議控場、多格式載體與互動戰情室平台架構與操作指南"
+  takeaway: "從冰冷檔案到即時動態戰情室，讓跨部門會議高效、透明且生動"
+  language: "zh-TW"
+  output_mode: "baked"
+  planning_mode: "yaml_spec"
+  generation_strategy: "sequential"
+  style_lock: "golden_sample"
+  slide_count: 5
+
+canvas:
+  target_ratio: "16:9"
+  safe_area_pct: {left: 6, right: 6, top: 10, bottom: 10}
+
+design_system:
+  visual_direction: "Premium dark slate executive command center and high-tech war room infographic with glowing neon accents, clean glassmorphism cards, and modern UI aesthetic"
+  palette:
+    background: "#0F172A"
+    primary: "#6366F1"
+    secondary: "#38BDF8"
+    accent: "#10B981"
+    highlight: "#F43F5E"
+    text: "#F8FAFC"
+  typography:
+    font_feel: "粗圓、飽滿、低稜角的繁體中文無襯線字體，線條乾淨清晰"
+    avoid: "尖角、窄長、機械感、科技模板細字"
+    plate_font_preferences:
+      - "jf open 粉圓 2.1"
+      - "GenSenRounded TW"
+      - "GenJyuuGothic"
+  style_reference: "deck/images/slide_01_cover.png"
+  negative_prompt:
+    - "不要 Logo 或雜亂浮水印"
+    - "不要未指定文字或英文亂碼拼寫"
+    - "不要老舊傳統投影幕或破損線路"
+
+layout_router:
+  focus: "cover_hero"
+  hierarchy: "relationship_map"
+  metric: "data_focus"
+  scenario: "case_scene_analysis"
+  synthesis: "summary_three"
+
+slides:
+  - page: 1
+    role: "cover"
+    core_point: "介紹 Patreport Console 平台核心定位"
+    semantic_structure: "focus"
+    layout: {id: "cover_hero", variant: "left_title_right_visual"}
+    visible_text: 
+      title: "Patreport Console"
+      subtitle: "定期會議控場與議程導航平台"
+    visual: "A sleek executive command center interface showing high-tech dashboard widgets, glowing charts, and laser pointer dots in deep slate and vibrant indigo-emerald accents"
+    output: "deck/images/slide_01_cover.png"
+
+  - page: 2
+    role: "architecture"
+    core_point: "展示三合一多格式內容融合架構"
+    semantic_structure: "hierarchy"
+    layout: {id: "relationship_map", variant: "three_layer_stack"}
+    visible_text:
+      title: "三合一多格式載體"
+      labels: ["HTML 動態戰情室", "Excel 數據自動剖析", "PDF 簡報安全內嵌"]
+    visual: "Three interconnected floating translucent cards representing HTML interactive charts, Excel data schema table, and PDF slide document flowing into one unified console"
+    output: "deck/images/slide_02_formats.png"
+
+  - page: 3
+    role: "controls"
+    core_point: "展示主持人專業演播工具與即時表決"
+    semantic_structure: "metric"
+    layout: {id: "data_focus", variant: "center_highlight"}
+    visible_text:
+      title: "專業演播與即時控場"
+      labels: ["雷射筆", "聚光燈", "螢光標註", "現場即時表決"]
+    visual: "A dynamic presenter control bar with red glowing laser pointer beam, focused spotlight circle illuminating key numbers, and a 100 percent live vote progress bar"
+    output: "deck/images/slide_03_controls.png"
+
+  - page: 4
+    role: "interaction"
+    core_point: "展示現場彈幕文字雲與送禮拉炮助興"
+    semantic_structure: "scenario"
+    layout: {id: "case_scene_analysis", variant: "interactive_stream"}
+    visible_text:
+      title: "現場助興與彈幕互動"
+      labels: ["浮動彩色彈幕", "免花費點讚送禮", "全場彩花拉炮", "主持人一鍵禁言開關"]
+    visual: "Floating colorful danmaku bubbles drifting across a dark screen, floating applause and coffee emojis, and celebratory confetti particles bursting in festive energy"
+    output: "deck/images/slide_04_interaction.png"
+
+  - page: 5
+    role: "management"
+    core_point: "展示後台會議排程、決議追蹤與資料庫架構"
+    semantic_structure: "synthesis"
+    layout: {id: "summary_three", variant: "triple_pillars"}
+    visible_text:
+      title: "會議管理控制台"
+      labels: ["多場次排程維護", "全公司決議管制庫", "JSON 一鍵備份與雲端就緒"]
+    visual: "An elegant admin console management dashboard with meeting schedule calendar, action item tracking checklist with green checkmarks, and a database cloud icon"
+    output: "deck/images/slide_05_admin.png"
+
+validation:
+  total_slides: 5
+  style_locked: true

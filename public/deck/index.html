@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patreport Console 平台介紹與操作簡介</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, sans-serif; }
+  </style>
+</head>
+<body class="h-full flex flex-col overflow-hidden select-none">
+  <!-- Top Bar -->
+  <header class="h-14 bg-slate-900 border-b border-slate-800 px-4 flex items-center justify-between z-10">
+    <div class="flex items-center gap-3">
+      <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-500 to-sky-400 flex items-center justify-center font-bold text-white text-xs">
+        P
+      </div>
+      <div>
+        <h1 class="text-xs sm:text-sm font-bold text-white">Patreport Console 平台介紹簡報</h1>
+        <p class="text-[10px] text-slate-400">YAML Image Deck 視覺化簡介 (16:9 寬螢幕)</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span id="pageIndicator" class="text-xs font-mono px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-indigo-300 font-semibold">
+        1 / 5
+      </span>
+      <a href="./patreport_intro.pptx" download class="flex items-center gap-1 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition">
+        <span>下載 PPTX</span>
+      </a>
+      <a href="../" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs transition border border-slate-700">
+        返回演播室
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Slide Display Area -->
+  <main class="flex-1 flex items-center justify-center p-4 relative bg-slate-950">
+    <button id="prevBtn" class="absolute left-6 z-20 p-3 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-white shadow-xl transition backdrop-blur-md">
+      ◀
+    </button>
+
+    <div class="w-full max-w-5xl aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 flex items-center justify-center relative">
+      <img id="slideImg" src="./images/slide_01_cover.png" alt="Slide" class="w-full h-full object-contain transition-opacity duration-200">
+    </div>
+
+    <button id="nextBtn" class="absolute right-6 z-20 p-3 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-white shadow-xl transition backdrop-blur-md">
+      ▶
+    </button>
+  </main>
+
+  <!-- Bottom Thumbnail Bar -->
+  <footer class="h-20 bg-slate-900/90 border-t border-slate-800 px-4 flex items-center justify-center gap-3 z-10 overflow-x-auto">
+    <div id="thumbContainer" class="flex items-center gap-3"></div>
+  </footer>
+
+  <script>
+    const slides = [
+      { page: 1, title: '平台總覽封面', file: './images/slide_01_cover.png' },
+      { page: 2, title: '三合一多格式載體', file: './images/slide_02_formats.png' },
+      { page: 3, title: '專業演播與控場', file: './images/slide_03_controls.png' },
+      { page: 4, title: '現場助興與彈幕', file: './images/slide_04_interaction.png' },
+      { page: 5, title: '會議管理控制台', file: './images/slide_05_admin.png' }
+    ];
+
+    let currentIndex = 0;
+    const slideImg = document.getElementById('slideImg');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const thumbContainer = document.getElementById('thumbContainer');
+
+    function renderSlide(index) {
+      currentIndex = index;
+      slideImg.src = slides[currentIndex].file;
+      pageIndicator.textContent = `${currentIndex + 1} / ${slides.length}`;
+      document.querySelectorAll('.thumb-card').forEach((el, idx) => {
+        el.className = `thumb-card h-14 aspect-[16/9] rounded-lg overflow-hidden border-2 cursor-pointer transition ${idx === currentIndex ? 'border-indigo-500 scale-105 shadow-md shadow-indigo-500/30' : 'border-slate-800 opacity-60 hover:opacity-100'}`;
+      });
+    }
+
+    slides.forEach((s, idx) => {
+      const card = document.createElement('div');
+      card.className = `thumb-card h-14 aspect-[16/9] rounded-lg overflow-hidden border-2 cursor-pointer transition ${idx === 0 ? 'border-indigo-500 scale-105' : 'border-slate-800 opacity-60'}`;
+      card.innerHTML = `<img src="${s.file}" class="w-full h-full object-cover">`;
+      card.onclick = () => renderSlide(idx);
+      thumbContainer.appendChild(card);
+    });
+
+    document.getElementById('prevBtn').onclick = () => {
+      if (currentIndex > 0) renderSlide(currentIndex - 1);
+    };
+    document.getElementById('nextBtn').onclick = () => {
+      if (currentIndex < slides.length - 1) renderSlide(currentIndex + 1);
+    };
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        if (currentIndex < slides.length - 1) renderSlide(currentIndex + 1);
+      } else if (e.key === 'ArrowLeft') {
+        if (currentIndex > 0) renderSlide(currentIndex - 1);
+      }
+    });
+  </script>
+</body>
+</html>
