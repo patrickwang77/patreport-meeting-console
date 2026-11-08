@@ -1,0 +1,54 @@
+{
+  "meetingId": "2026-11-exec",
+  "title": "2026 年 11 月份經營決策與跨部門月報",
+  "date": "2026-11-08",
+  "chairperson": "Patrick Wang",
+  "totalBudgetMinutes": 75,
+  "agendas": [
+    {
+      "id": "agenda-1",
+      "index": 1,
+      "title": "開會致詞與上月決議管制作業追蹤",
+      "department": "執行長室 / 總經理室",
+      "presenter": "Patrick Wang",
+      "allocatedMinutes": 10,
+      "contentType": "html",
+      "contentSrc": "/custom-dashboards/action-review.html",
+      "description": "檢視 10 月會議決議項目執行狀況及各單位回覆進度。"
+    },
+    {
+      "id": "agenda-2",
+      "index": 2,
+      "title": "跨部門 Q4 預算執行率與專案績效儀表板",
+      "department": "財務部 / 營運規劃室",
+      "presenter": "Amy (財務處長)",
+      "allocatedMinutes": 20,
+      "contentType": "excel_table",
+      "contentSrc": "/uploads/2026-11/finance_report.xlsx",
+      "schema": "department-report",
+      "description": "系統依 Schema 剖析 Excel 資料，呈現互動圖表、預算消耗分析與異常燈號篩選。"
+    },
+    {
+      "id": "agenda-3",
+      "index": 3,
+      "title": "資安架構升級與雲端機敏資料防護報告",
+      "department": "資訊技術部",
+      "presenter": "David (IT 協理)",
+      "allocatedMinutes": 25,
+      "contentType": "pdf",
+      "contentSrc": "/uploads/2026-11/it_security.pdf",
+      "description": "資訊處提報之 PDF 簡報，內嵌於會議平台中，支援全螢幕與多頁導航。"
+    },
+    {
+      "id": "agenda-4",
+      "index": 4,
+      "title": "年度重點戰略專案進度即時戰情室",
+      "department": "專案企劃部",
+      "presenter": "Patrick Wang",
+      "allocatedMinutes": 20,
+      "contentType": "html",
+      "contentSrc": "/custom-dashboards/kpi-overview.html",
+      "description": "純 HTML5 + CSS + Chart.js 打造的高互動動態戰情室，免開 PPT 即可穿透下鑽數據。"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DepartmentBudgetReport",
+  "description": "跨部門定期月報與預算執行提報規格",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["dept", "projectName", "budget", "actualSpent", "status"],
+    "properties": {
+      "dept": {
+        "type": "string",
+        "description": "提報部門代碼或名稱",
+        "enum": ["財務部", "資訊部", "行銷部", "業務部", "營運部", "人資部"]
+      },
+      "projectName": {
+        "type": "string",
+        "description": "專案或業務工作名稱"
+      },
+      "budget": {
+        "type": "number",
+        "minimum": 0,
+        "description": "本期預算（萬元）"
+      },
+      "actualSpent": {
+        "type": "number",
+        "minimum": 0,
+        "description": "實際花費（萬元）"
+      },
+      "progress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "description": "進度百分比 (0-100)"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["正常", "注意", "落後"],
+        "description": "燈號狀態 (正常=綠, 注意=黃, 落後=紅)"
+      },
+      "owner": {
+        "type": "string",
+        "description": "專案負責人"
+      },
+      "remark": {
+        "type": "string",
+        "description": "風險說明或備註事項"
+      }
+    }
+  }
+}

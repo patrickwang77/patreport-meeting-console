@@ -1,0 +1,53 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
+// Generate a valid minimal PDF with readable text
+const pdfContent = `%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 285 >>
+stream
+BT
+/F1 22 Tf
+50 720 Td
+(IT Department Security Report - 2026 Q4) Tj
+/F1 14 Tf
+0 -40 Td
+(1. Multi-Factor Authentication: 100% Deployed) Tj
+0 -30 Td
+(2. Cloud Security Policy & Compliance: ISO 27001 Passed) Tj
+0 -30 Td
+(3. Endpoint Detection & Threat Hunting: Zero Incident) Tj
+0 -30 Td
+(4. Next Step: Zero-Trust Network Access Expansion) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000244 00000 n 
+0000000581 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+652
+%%EOF`;
+
+const pdfPath = path.join(process.cwd(), 'public', 'uploads', '2026-11', 'it_security.pdf');
+fs.writeFileSync(pdfPath, pdfContent);
+console.log(`Created sample PDF at ${pdfPath}`);

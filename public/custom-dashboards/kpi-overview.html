@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>年度重點戰略專案進度即時戰情室</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 md:p-10 min-h-screen">
+  <div class="max-w-6xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800">
+      <div>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-900 text-indigo-300 border border-indigo-700 mb-2">
+          議程 4 戰略戰情室 (即時互動)
+        </span>
+        <h1 class="text-2xl md:text-3xl font-bold text-white">2026 年度重點戰略專案綜效儀表板</h1>
+        <p class="text-slate-400 text-sm mt-1">即時聚合跨部門 6 大關鍵戰略專案，點選圖表可即時切換分析維度。</p>
+      </div>
+      <div class="mt-4 md:mt-0 flex gap-2">
+        <button onclick="updateChartType('bar')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 transition">柱狀圖</button>
+        <button onclick="updateChartType('line')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 transition">趨勢圖</button>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+        <div class="text-xs text-slate-400 font-medium">戰略專案總數</div>
+        <div class="text-3xl font-bold text-white mt-1">6 案</div>
+        <div class="text-xs text-emerald-400 mt-2 font-medium">↑ 100% 均按期推展中</div>
+      </div>
+      <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+        <div class="text-xs text-slate-400 font-medium">平均進度完成率</div>
+        <div class="text-3xl font-bold text-indigo-400 mt-1">84.5%</div>
+        <div class="text-xs text-slate-400 mt-2">目標 Q4 底達到 95%</div>
+      </div>
+      <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+        <div class="text-xs text-slate-400 font-medium">總核定年度預算</div>
+        <div class="text-3xl font-bold text-emerald-400 mt-1">$4,280 萬</div>
+        <div class="text-xs text-slate-400 mt-2">累計已執行 $3,150 萬 (73.6%)</div>
+      </div>
+      <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+        <div class="text-xs text-slate-400 font-medium">跨部門協同風險</div>
+        <div class="text-3xl font-bold text-amber-400 mt-1">低風險 (綠燈)</div>
+        <div class="text-xs text-slate-400 mt-2">無高風險瓶頸阻塞項目</div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+        <h3 class="text-base font-semibold text-white mb-4">各戰略專案預算對比實際支出 (單位: 萬元)</h3>
+        <div class="h-64">
+          <canvas id="budgetChart"></canvas>
+        </div>
+      </div>
+      <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+        <h3 class="text-base font-semibold text-white mb-4">部門資源佔比</h3>
+        <div class="h-64 flex items-center justify-center">
+          <canvas id="deptPieChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ctxBudget = document.getElementById('budgetChart').getContext('2d');
+    const ctxDept = document.getElementById('deptPieChart').getContext('2d');
+
+    const labels = ['雲端機敏防護', 'ERP 升級二期', '客戶體驗平台', 'AI 自動化助理', '綠色供應鏈', '組織戰略變革'];
+    const budgets = [850, 1200, 780, 500, 450, 500];
+    const actuals = [620, 950, 610, 390, 310, 270];
+
+    let budgetChart = new Chart(ctxBudget, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: '核定預算',
+            data: budgets,
+            backgroundColor: 'rgba(99, 102, 241, 0.4)',
+            borderColor: 'rgba(99, 102, 241, 1)',
+            borderWidth: 1.5,
+            borderRadius: 6
+          },
+          {
+            label: '已執行支出',
+            data: actuals,
+            backgroundColor: 'rgba(52, 211, 153, 0.7)',
+            borderColor: 'rgba(52, 211, 153, 1)',
+            borderWidth: 1.5,
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: '#94a3b8' } }
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+        }
+      }
+    });
+
+    new Chart(ctxDept, {
+      type: 'doughnut',
+      data: {
+        labels: ['資訊處', '營運處', '業務處', '管理處'],
+        datasets: [{
+          data: [42, 26, 18, 14],
+          backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#ec4899'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12 } }
+        }
+      }
+    });
+
+    function updateChartType(type) {
+      budgetChart.destroy();
+      budgetChart = new Chart(ctxBudget, {
+        type: type,
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '核定預算',
+              data: budgets,
+              borderColor: 'rgba(99, 102, 241, 1)',
+              backgroundColor: type === 'line' ? 'transparent' : 'rgba(99, 102, 241, 0.4)',
+              tension: 0.3
+            },
+            {
+              label: '已執行支出',
+              data: actuals,
+              borderColor: 'rgba(52, 211, 153, 1)',
+              backgroundColor: type === 'line' ? 'transparent' : 'rgba(52, 211, 153, 0.7)',
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#94a3b8' } } },
+          scales: {
+            x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+            y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
